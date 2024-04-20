@@ -30,7 +30,6 @@
 *.exe
 *.out
 *.app
-*/*dSYM/*
 *.plist
-./Desafio*
-Desafio10.dSYM/Contents/Resources/DWARF/Desafio10
+*.dSYM
+bin/*
