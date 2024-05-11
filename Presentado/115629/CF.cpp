@@ -33,15 +33,15 @@ public:
     int getDenominador() const { return denominador; }
 
     // Métodos de modificación
-    void setNumerador(int num) { numerador = num; }
-    void setDenominador(int den)
+    void setNumerador(int value) { numerador = value; }
+    void setDenominador(int value)
     {
         if (den == 0)
         {
             std::cerr << "Error: El denominador no puede ser cero." << std::endl;
             return;
         }
-        denominador = den;
+        denominador = value;
     }
 
     // Método para mostrar la fracción
@@ -61,10 +61,12 @@ public:
     {
         return static_cast<float>(numerador) / denominador;
     }
-    Fraccion mayor(const Fraccion &otra) const
+
+    Fraccion &mayor(const Fraccion &otra) const
     {
         return *this > otra ? *this : otra;
     }
+    
     Fraccion multiplicacion(const Fraccion &otra) const
     {
         return *this * otra;
@@ -86,14 +88,11 @@ public:
     // por estilo deberia ser calcularMcd
     int MCD(int r0, int r1) const
     {
-        while (r1 != 0)
-        {
-            int tmp = r1;
-            r1 = r0 % r1;
-            r0 = tmp;
-        }
-        return r0;
+        if (r1 == 0)
+            return r0;
+        return MCD(r1, r0 % r1);
     }
+
     int mcm(int n, int m)
     {
         int mcd = MCD(n, m);
@@ -127,7 +126,7 @@ public:
     {
         return valorDecimal() > otra.valorDecimal();
     }
-    //todas las operaciones simplifican usando canonica
+    // todas las operaciones simplifican usando canonica
     Fraccion operator*(const Fraccion &otra) const
     {
         return Fraccion(numerador * otra.numerador, denominador * otra.denominador).canonica();
